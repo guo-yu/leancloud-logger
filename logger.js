@@ -45,7 +45,7 @@ function log(req, res, next) {
   var details = req.body;
 
   if (!token || !details || token !== configs.token)
-    return res.send('fail');
+    return res.json({ status: 'fail'});
 
   var baby = new Log();
 
@@ -55,13 +55,13 @@ function log(req, res, next) {
   });
 
   function successCallback(data) {
-    res.send('ok');
+    res.json({ status: 'ok'});
   }
 
   function errorCallback(data, err) {
     debug('error');
     debug(err);
-    res.send('fail');
+    res.json({ status: 'fail'});
   }
 }
 

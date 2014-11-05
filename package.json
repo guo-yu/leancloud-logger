@@ -1,6 +1,6 @@
 {
   "name": "leancloud-logger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a logger service based on LeanCloud",
   "main": "index.js",
   "scripts": {
