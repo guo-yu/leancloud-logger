@@ -1,0 +1,23 @@
+{
+  "name": "leancloud-logger",
+  "version": "0.1.0",
+  "description": "a logger service based on LeanCloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/turingou/leancloud-logger.git"
+  },
+  "keywords": [
+    "leancloud",
+    "logger"
+  ],
+  "author": "turing <o.u.turing@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/turingou/leancloud-logger/issues"
+  },
+  "homepage": "https://github.com/turingou/leancloud-logger"
+}
