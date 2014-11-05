@@ -42,27 +42,27 @@ function logger() {
 
 function log(req, res, next) {
   var token = req.headers['logger-token'];
-  var logDetails = req.body;
+  var details = req.body;
 
-  if (!token || !logDetails || token !== configs.token)
+  if (!token || !details || token !== configs.token)
     return res.send('fail');
 
   var baby = new Log();
 
   baby.save(
-    logDetails, 
+    details, 
     configs.successCallback || successCallback, 
     configs.errorCallback || errorCallback
   );
 
   function successCallback(data) {
-    
+    res.send('ok');
   }
 
   function errorCallback(data, err) {
     debug('error');
     debug(err);
-    debug('error end');
+    res.send('fail');
   }
 }
 
