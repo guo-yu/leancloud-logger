@@ -61,6 +61,7 @@ function log(req, res, next) {
   function errorCallback(data, err) {
     debug('error');
     debug(err);
+    debug(req.body);
     res.json({ status: 'fail'});
   }
 }
