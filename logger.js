@@ -49,11 +49,10 @@ function log(req, res, next) {
 
   var baby = new Log();
 
-  baby.save(
-    details, 
-    configs.successCallback || successCallback, 
-    configs.errorCallback || errorCallback
-  );
+  baby.save(details, {
+    success: configs.successCallback || successCallback,
+    error: configs.errorCallback || errorCallback
+  });
 
   function successCallback(data) {
     res.send('ok');
