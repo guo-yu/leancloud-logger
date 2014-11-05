@@ -1,5 +1,5 @@
 var path = require('path');
-var logger = require("morgan");
+var morgan = require("morgan");
 var express = require('express');
 var compress = require('compression');
 var bodyParser = require('body-parser');
@@ -13,20 +13,20 @@ var debug = require('debug')(pkg.name);
 // Init LeanCloud instance 
 AV.initialize(configs.appId, configs.appKey);
 
-module.exports = logger();
+module.exports = logger;
 
 function logger() {
   // Init the app instance.
   var app = express();
   var env = process.env.NODE_ENV || 'development';
-  var localogStyle = (env === 'production') ? 'common' : 'dev';
+  var logstyle = (env === 'production') ? 'combined' : 'dev';
 
   // Environment Vars
   app.set('env', env);
   app.set('port', process.env.PORT || 3000);
   
   // Middlewares
-  app.use(logger(localogStyle));
+  app.use(morgan(logstyle));
   app.use(compress());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
@@ -44,7 +44,7 @@ function log(req, res, next) {
   var token = req.headers['logger-token'];
   var logDetails = req.body;
 
-  if (!token || !logDetails || token !== )
+  if (!token || !logDetails || token !== configs.token)
     return res.send('fail');
 
   var baby = new Log();
@@ -65,3 +65,6 @@ function log(req, res, next) {
     debug('error end');
   }
 }
+
+if (!module.parent)
+  logger();
