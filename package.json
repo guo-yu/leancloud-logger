@@ -4,7 +4,8 @@
   "description": "a logger service based on LeanCloud",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "DEBUG=leancloud-logger,leancloud-logger:* PORT=3000 node logger.js",
+    "start": "DEBUG=leancloud-logger,leancloud-logger:* NODE_ENV=production PORT=3000 pm2 start logger.js"
   },
   "repository": {
     "type": "git",
