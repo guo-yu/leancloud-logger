@@ -31,10 +31,6 @@ function logger(configs) {
     if (!self.configs[type])
       self.configs[type] = function(){};
   });
-
-  // Start a logger server instance if you need.
-  if (!module.parent)
-    this.server = startLoggerServer();
 }
 
 logger.prototype.log = log;
@@ -55,7 +51,7 @@ function startLoggerServer() {
   var express = require('express');
   var compress = require('compression');
   var bodyParser = require('body-parser');
-  
+
   // Init the app instance.
   var app = express();
   var env = process.env.NODE_ENV || 'development';
@@ -109,3 +105,6 @@ function startLoggerServer() {
 
   return app;
 }
+
+if (!module.parent)
+  startLoggerServer();
