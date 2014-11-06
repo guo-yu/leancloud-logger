@@ -1,10 +1,10 @@
-var pkg = require('./package.json');
+var pkg = require('../package.json');
 var debug = require('debug')(pkg.name + ':example');
 var Logger = require('../logger');
-var log = new Logger(require('../configs.js'));
+var logger = new Logger(require('../configs.js'));
 
-log({
-  ua: 'iOS',
+logger.log({
+  ua: 'iOS 8.1.0',
   crashed: true,
   time: new Date().getTime()
 }, function(result){

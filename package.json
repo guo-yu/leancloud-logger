@@ -4,6 +4,7 @@
   "description": "a logger service based on LeanCloud",
   "main": "logger.js",
   "scripts": {
+    "example": "DEBUG=leancloud-logger,leancloud-logger:* node example/log.js",
     "dev": "DEBUG=leancloud-logger,leancloud-logger:* PORT=3000 node logger.js",
     "start": "DEBUG=leancloud-logger,leancloud-logger:* NODE_ENV=production PORT=3000 pm2 start logger.js"
   },

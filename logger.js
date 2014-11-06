@@ -3,19 +3,24 @@ var AV = require('avoscloud-sdk').AV;
 var pkg = require('./package.json');
 var debug = require('debug')(pkg.name);
 var Log = AV.Object.extend("log");
+var standalone = !module.parent;
+
+debug('standalone mode: %s', standalone);
 
 module.exports = logger;
 
 function logger(configs) {
   var self = this;
   // Load configs from local file
-  if (!configs && !module.parent) {
+  if (!configs && standalone) {
     try {
       var configs = require('./configs');
     } catch (err) {
       throw err;
     }
   }
+
+  debug(configs);
 
   this.configs = configs;
 
@@ -31,11 +36,16 @@ function logger(configs) {
     if (!self.configs[type])
       self.configs[type] = function(){};
   });
+
+  if (standalone)
+    this.server = startLoggerServer(configs);
 }
 
 logger.prototype.log = log;
 
 function log(data, successCallback, errorCallback) {
+  debug(data);
+  
   var baby = new Log();
 
   baby.save(data, {
@@ -46,7 +56,7 @@ function log(data, successCallback, errorCallback) {
   return baby;
 }
 
-function startLoggerServer() {
+function startLoggerServer(configs) {
   var morgan = require("morgan");
   var express = require('express');
   var compress = require('compression');
@@ -73,6 +83,8 @@ function startLoggerServer() {
   function logRoute(req, res, next) {
     var token = req.headers['logger-token'];
     var details = req.body;
+
+    debug(token);
 
     if (!token || !details || token !== configs.token)
       return res.json(responseWith('fail'));
@@ -106,5 +118,5 @@ function startLoggerServer() {
   return app;
 }
 
-if (!module.parent)
-  startLoggerServer();
+if (standalone)
+  logger();
