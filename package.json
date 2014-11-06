@@ -1,8 +1,8 @@
 {
   "name": "leancloud-logger",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "a logger service based on LeanCloud",
-  "main": "index.js",
+  "main": "logger.js",
   "scripts": {
     "dev": "DEBUG=leancloud-logger,leancloud-logger:* PORT=3000 node logger.js",
     "start": "DEBUG=leancloud-logger,leancloud-logger:* NODE_ENV=production PORT=3000 pm2 start logger.js"
@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/turingou/leancloud-logger",
   "dependencies": {
-    "avoscloud-sdk": "^0.4.5",
+    "debug": "^2.1.0",
+    "avoscloud-sdk": "^0.4.5"
+  },
+  "devDependencies": {
     "body-parser": "^1.9.2",
     "compression": "^1.2.0",
-    "debug": "^2.1.0",
     "express": "^4.10.1",
     "morgan": "^1.4.1"
   }
