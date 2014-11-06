@@ -7,13 +7,34 @@ a logger service based on LeanCloud
 $ npm install leancloud-logger
 ```
 
+### Stand alone server
+to run standalone server:
+```bash
+$ git clone https://github.com/turingou/leancloud-logger.git
+$ cd leancloud-logger
+$ touch configs.js
+$ vi configs.js 
+$ NODE_ENV=production PORT=8080 pm2 start logger.js
+```
+
 ### Example
 ```js
 var leancloudLogger = require('leancloud-logger');
-```
+var logger = new leancloudLogger({
+  appId: 'xxx',
+  appKey: 'xxx',
+  token: 'xxxxxx' // for client auth, in req.headers['logger-token'];
+});
 
-### API
-check this file: `index.js`
+logger.log({
+  ua: 'iOS 8.1.0',
+  crashed: true,
+  time: new Date().getTime()
+}, function(result){
+  debug('log success');
+  debug(result);
+});
+```
 
 ### Contributing
 - Fork this repo
