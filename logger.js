@@ -2,7 +2,6 @@ var path = require('path');
 var AV = require('avoscloud-sdk').AV;
 var pkg = require('./package.json');
 var debug = require('debug')(pkg.name);
-var Log = AV.Object.extend("log");
 var standalone = !module.parent;
 
 debug('standalone mode: %s', standalone);
@@ -31,6 +30,11 @@ function logger(configs) {
   if (configs.appId && configs.appKey)
     AV.initialize(configs.appId, configs.appKey);
 
+  if (!this.configs.logKey)
+    this.configs.logKey = 'Log';
+
+  this.Log = AV.Object.extend(this.configs.logKey);
+
   // Fill default callbacks.
   ['successCallback', 'errorCallback'].forEach(function(type){
     if (!self.configs[type])
@@ -46,7 +50,7 @@ logger.prototype.log = log;
 function log(data, successCallback, errorCallback) {
   debug(data);
   
-  var baby = new Log();
+  var baby = new this.Log();
 
   baby.save(data, {
     success: successCallback || this.configs.successCallback,
